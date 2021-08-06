@@ -1,5 +1,5 @@
 # gmaps-nuxt
  vue2-google-maps x nuxt-socket-io x nuxtjs x expressjs
 
-#yarn install
-#yarn dev
+yarn install
+yarn dev
