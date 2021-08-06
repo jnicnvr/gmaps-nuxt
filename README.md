@@ -3,5 +3,7 @@
 
 
 git clone https://github.com/jnicnvr/gmaps-nuxt.git
+
 yarn install
+
 yarn dev
