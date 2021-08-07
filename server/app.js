@@ -23,7 +23,7 @@ io.on("connection", socket => {
             function (err, rows, fields) {
                 // Connection is automatically released when query resolves
                 socket.emit('onReceived', rows)
-                console.log(rows)              
+                console.log(rows)
             })
 
         console.log(JSON.stringify(data))
@@ -37,8 +37,16 @@ io.on("connection", socket => {
                 console.log(rows)
                 socket.broadcast.emit('onAlertSend', rows)
                 console.log('emitted!')
-            
+
             })
+
+    })
+    socket.on('clearAlert', () => {
+        console.log('alert sent!')
+
+        socket.broadcast.emit('onClearAlert')
+        console.log('emitted!')
+
 
     })
 

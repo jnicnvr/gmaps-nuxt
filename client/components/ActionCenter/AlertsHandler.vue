@@ -10,11 +10,11 @@
             type="error"
             text
           >ALERTS</v-alert>
-          <v-list >
+          <v-list>
             <v-list-item-group color="indigo">
-              <v-list-item>
-                <v-list-item-content>
-                  <v-list-item-title >Juan Dela Cruz</v-list-item-title>
+              <v-list-item v-for="alerts in getLocation" :key="alerts.id">
+                <v-list-item-content >
+                  <v-list-item-title>{{alerts.name}}</v-list-item-title>
                   <v-list-item-subtitle>Daet Camarines Norte</v-list-item-subtitle>
                   <v-list-item-subtitle>Police</v-list-item-subtitle>
                 </v-list-item-content>
@@ -81,23 +81,17 @@
     </v-row>
     <v-btn @click="getUser()">Get User</v-btn>
     <v-btn @click="sendAlert()">Send Alert</v-btn>
+    <v-btn @click="clearAlert()">Clear Alert</v-btn>
   </v-navigation-drawer>
 </template>
 
 <script>
+import { mapGetters } from "vuex";
 export default {
   data: () => ({
-    alerts: {
-      name: '',
-      lat: '',
-      lng:''
-    },
+    alerts: [],
     outgoing: {},
     completed: {},
-    userInfo:{
-        name: 'Juan Dela Cruz',
-        mobile: '094780213123'
-    }
   }),
   mounted() {
     this.socket = this.$nuxtSocket({
@@ -108,25 +102,19 @@ export default {
       // socket.io-client opts:
       reconnection: false,
     });
-    //   this.socket.on("onReceived", (data) => {
-    //   console.log("Nuxt js data");
-    //   console.log(data);
-    // });
-    // this.socket.on("onSendAlert", (data) => {
-    //   console.log("Alert Received!");
-    //   console.log(data); 
-      
-    //   this.alerts = data
-         
-    // });
-    
+  },
+  computed: {
+    ...mapGetters("map", { getLocation: "getLocation" }),
   },
   methods: {
     getUser() {
       this.socket.emit("test", { data: this.userInfo });
     },
-     sendAlert() {
+    sendAlert() {
       this.socket.emit("sendAlert");
+    },
+    clearAlert() {
+      this.socket.emit("clearAlert");
     },
   },
 };

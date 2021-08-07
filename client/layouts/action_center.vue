@@ -2,7 +2,7 @@
   <v-app>
     <v-app-bar app dark clipped-left>
       <v-app-bar-nav-icon></v-app-bar-nav-icon>
-      <v-app-bar-title>CNEAS</v-app-bar-title>
+      <v-app-bar-title>CNEAS.v3</v-app-bar-title>
       <v-spacer></v-spacer>
       <span>User</span>
       <v-toolbar-title></v-toolbar-title>

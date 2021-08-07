@@ -20,12 +20,17 @@
 </template>
 
 <script>
+import { mapGetters, mapActions, mapMutations } from "vuex";
 export default {
   layout: "action_center",
   data: () => ({
     locations: [],
-    center: {lat:14.264209, lng:121.059288},
+    center: { lat: 14.264209, lng: 121.059288 },
   }),
+ 
+  methods: {
+    ...mapActions("map", { setLocation: "SET_LOCATION" }),
+  },
   mounted() {
     this.socket = this.$nuxtSocket({
       // nuxt-socket-io opts:
@@ -35,6 +40,7 @@ export default {
       // socket.io-client opts:
       reconnection: false,
     });
+
     this.socket.on("onReceived", (data) => {
       console.log("Nuxt js data");
       console.log(data);
@@ -43,7 +49,15 @@ export default {
       console.log("Alert Received!");
       console.log(data);
       this.locations = data;
+         this.setLocation(this.locations)
     });
+    this.socket.on("onClearAlert", () => {
+      console.log("Alert Cleared!");
+      this.locations = [];
+       this.setLocation(this.locations)
+     
+    });
+  
   },
 };
 </script>
